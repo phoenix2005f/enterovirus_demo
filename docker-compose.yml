@@ -1,0 +1,29 @@
+version: '3'
+services:
+    web:
+        build: .
+        ports:
+            - "5566:5566"
+        command: python app.py
+        volumes:
+            - .:/code
+        depends_on:
+            - redis
+        environment:
+            # - BOKEH_URL=140.115.80.90:5006/real_time_ver_4_history
+            - network.host=0.0.0.0
+            - PYTHONIOENCODING=utf-8
+    bokeh-app:
+        ports:
+            - "5006:5006"
+        build: .
+        command: bokeh serve real_time_ver_4_history.py --allow-websocket-origin=140.115.80.90:5566 --log-level info
+        environment:
+            - network.host=0.0.0.0
+            - PYTHONIOENCODING=utf-8
+    redis:
+        image: redis
+        environment:
+            - vm.overcommit_memory=1
+volumes:
+  .:
