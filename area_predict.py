@@ -39,7 +39,6 @@ def output_res():
         geo_source = GeoJSONDataSource(geojson=json_str)
         twgeo_json = json.loads(json_str)
 
-
   
 
 
@@ -78,7 +77,7 @@ def output_res():
         fig.legend.location = "top_left"
         fig.legend.click_policy = "hide"
         fig.xaxis.axis_label = 'Date'
-        fig.yaxis.axis_label = '腸病毒人數' 
+        fig.yaxis.axis_label = '腸病毒人數'
 
 
     future_4_weeks = []
@@ -160,7 +159,7 @@ def output_res():
     fig_config(fig_predict_1year)
 
 
-    p = figure(title="Taiwan", tools=TOOLS, x_axis_location=None, y_axis_location=None, width=600, height=800)
+    p = figure(title="Taiwan(請點擊地圖以檢視分區 mae)", tools=TOOLS, x_axis_location=None, y_axis_location=None, width=600, height=800)
     p.background_fill_color = 'beige'
     p.border_fill_color = 'black'
     p.border_fill_alpha = 0.05
@@ -234,7 +233,6 @@ def output_res():
                 'model':   [ model for model in models if model!='truth'],
                 'mae':[ pred_64week_mae['{}_{}'.format(area,model)] for model in models if model!='truth'],
             }
-
 
     geo_source.on_change('selected',my_tap_handler)
 
